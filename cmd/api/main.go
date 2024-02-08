@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"log"
 	"net/http"
 	"time"
@@ -8,6 +9,11 @@ import (
 	"github.com/elkcityhazard/contact-keeper/cmd/internal/config"
 	"github.com/elkcityhazard/contact-keeper/cmd/internal/flagparser"
 	"github.com/elkcityhazard/contact-keeper/cmd/internal/handlers"
+	_ "github.com/go-sql-driver/mysql"
+)
+
+var (
+	DSN string
 )
 
 var app config.AppConfig
@@ -19,6 +25,22 @@ func main() {
 	// create a new repo with the AppConfig
 
 	handlers.NewRepo(&app)
+
+	app.DSN = DSN
+
+	db, err := sql.Open("mysql", app.DSN)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	app.DB = db
+
+	err = app.DB.Ping()
+
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	srv := &http.Server{
 		Addr:         ":8080",
