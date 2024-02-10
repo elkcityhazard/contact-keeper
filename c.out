@@ -1,0 +1,14 @@
+mode: set
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/main.go:21.13,33.16 5 0
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/main.go:33.16,35.3 1 0
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/main.go:37.2,41.16 3 0
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/main.go:41.16,43.3 1 0
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/main.go:45.2,55.45 3 0
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/main.go:55.45,58.3 2 0
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/middleware.go:8.57,9.71 1 1
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/middleware.go:9.71,11.24 1 1
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/middleware.go:11.24,14.4 2 1
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/middleware.go:16.3,16.41 1 1
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/middleware.go:16.41,19.4 2 1
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/middleware.go:21.3,21.23 1 1
+/home/andrew/Documents/go-projects/contact-keeper/cmd/api/routes.go:9.24,20.2 6 0
