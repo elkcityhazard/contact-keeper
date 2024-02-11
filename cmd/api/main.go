@@ -12,8 +12,11 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// flag vars
+
 var (
-	DSN string
+	DSN     string
+	Version string
 )
 
 var app config.AppConfig
@@ -22,11 +25,8 @@ func main() {
 
 	flagparser.ParseFlags(&app)
 
-	// create a new repo with the AppConfig
-
-	handlers.NewRepo(&app)
-
 	app.DSN = DSN
+	app.Version = Version
 
 	db, err := sql.Open("mysql", app.DSN)
 
@@ -41,6 +41,10 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	// create a new repo with the AppConfig
+
+	handlers.NewRepo(&app)
 
 	srv := &http.Server{
 		Addr:         ":8080",

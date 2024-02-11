@@ -11,6 +11,8 @@ func routes() *chi.Mux {
 
 	mux.Use(middleware.Logger)
 	mux.Use(middleware.Recoverer)
+	mux.Use(StripTrailingSlash)
+	mux.Use(DefaultHeaders)
 
 	mux.Get("/ping", handlers.Repo.PingHandler)
 

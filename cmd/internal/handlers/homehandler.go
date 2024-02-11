@@ -7,7 +7,7 @@ import (
 
 func (m *Repository) HomeHandler(w http.ResponseWriter, r *http.Request) {
 
-	if err := json.NewEncoder(w).Encode([]byte("hello world")); err != nil {
+	if err := json.NewEncoder(w).Encode("stub home route"); err != nil {
 		return
 	}
 }

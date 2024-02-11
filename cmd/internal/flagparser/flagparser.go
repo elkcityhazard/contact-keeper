@@ -8,8 +8,6 @@ import (
 
 func ParseFlags(config *config.AppConfig) {
 
-	flag.StringVar(&config.Port, "port", "8080", "Port to listen on")
-	flag.StringVar(&config.DSN, "DSN", "", "Database connection string")
 	flag.Parse()
 
 }
