@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	"github.com/elkcityhazard/contact-keeper/cmd/internal/config"
+	"github.com/elkcityhazard/contact-keeper/internal/config"
 )
 
 var (

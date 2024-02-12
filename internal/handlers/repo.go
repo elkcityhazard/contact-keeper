@@ -1,6 +1,16 @@
 package handlers
 
-import "github.com/elkcityhazard/contact-keeper/cmd/internal/config"
+import (
+	"encoding/gob"
+
+	"github.com/elkcityhazard/contact-keeper/internal/config"
+	"github.com/elkcityhazard/contact-keeper/internal/models"
+)
+
+type status struct {
+	StatusCode int
+	Message    string
+}
 
 type Repository struct {
 	app *config.AppConfig
@@ -12,6 +22,7 @@ var Repo *Repository
 //
 // It takes a pointer to an AppConfig as a parameter and returns a pointer to a Repo.
 func NewRepo(a *config.AppConfig) {
+	gob.Register(status{})
 	Repo = &Repository{
 		app: a,
 	}
@@ -19,4 +30,8 @@ func NewRepo(a *config.AppConfig) {
 
 func GetRepo() *Repository {
 	return Repo
+}
+
+func (m *Repository) GetUsers() ([]*models.User, error) {
+	return nil, nil
 }

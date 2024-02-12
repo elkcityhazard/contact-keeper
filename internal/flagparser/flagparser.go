@@ -3,7 +3,7 @@ package flagparser
 import (
 	"flag"
 
-	"github.com/elkcityhazard/contact-keeper/cmd/internal/config"
+	"github.com/elkcityhazard/contact-keeper/internal/config"
 )
 
 func ParseFlags(config *config.AppConfig) {

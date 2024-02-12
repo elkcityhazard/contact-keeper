@@ -11,7 +11,6 @@ import (
 )
 
 func Test_middleware(t *testing.T) {
-
 	// create the tests
 
 	pathTests := []struct {
@@ -58,7 +57,6 @@ func Test_middleware(t *testing.T) {
 	for _, tt := range pathTests {
 		// run the test
 		t.Run(tt.name, func(t *testing.T) {
-
 			r := chi.NewRouter()
 
 			r.Use(StripTrailingSlash)
@@ -84,7 +82,6 @@ func Test_middleware(t *testing.T) {
 			for i := 0; i < 10; i++ {
 
 				client := &http.Client{
-
 					CheckRedirect: func(req *http.Request, via []*http.Request) error {
 						fmt.Println(req.URL.String())
 						return http.ErrUseLastResponse
@@ -126,8 +123,6 @@ func Test_middleware(t *testing.T) {
 				}
 
 			}
-
 		})
 	}
-
 }

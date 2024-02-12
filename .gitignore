@@ -4,5 +4,8 @@ docker-compose.yml
 docker*
 Make*
 /bin/*
+c.out
+**.out
+**dbdata
 
 

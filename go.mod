@@ -6,3 +6,13 @@ require (
 	github.com/go-chi/chi/v5 v5.0.11
 	github.com/go-sql-driver/mysql v1.7.1
 )
+
+require (
+	github.com/alexedwards/scs/redisstore v0.0.0-20240203174419-a38e822451b6 // indirect
+	github.com/alexedwards/scs/v2 v2.7.0 // indirect
+	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
+	github.com/go-redis/redis/v8 v8.11.5 // indirect
+	github.com/gomodule/redigo v1.8.9 // indirect
+	golang.org/x/crypto v0.19.0 // indirect
+)

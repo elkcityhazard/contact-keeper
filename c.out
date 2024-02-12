@@ -1,7 +1,3 @@
 mode: atomic
-github.com/elkcityhazard/contact-keeper/cmd/internal/handlers/homehandler.go:8.74,10.69 1 0
-github.com/elkcityhazard/contact-keeper/cmd/internal/handlers/homehandler.go:10.69,12.3 1 0
-github.com/elkcityhazard/contact-keeper/cmd/internal/handlers/ping_handler.go:8.74,21.56 6 0
-github.com/elkcityhazard/contact-keeper/cmd/internal/handlers/ping_handler.go:21.56,24.3 2 0
-github.com/elkcityhazard/contact-keeper/cmd/internal/handlers/repo.go:14.35,18.2 1 3
-github.com/elkcityhazard/contact-keeper/cmd/internal/handlers/repo.go:20.28,22.2 1 1
+github.com/elkcityhazard/contact-keeper/internal/flagparser/flagparser.go:9.43,13.2 1 0
+github.com/elkcityhazard/contact-keeper/internal/database/database.go:5.20,7.2 1 0

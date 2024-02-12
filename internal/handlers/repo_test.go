@@ -3,7 +3,7 @@ package handlers
 import (
 	"testing"
 
-	"github.com/elkcityhazard/contact-keeper/cmd/internal/config"
+	"github.com/elkcityhazard/contact-keeper/internal/config"
 )
 
 func Test_GetRepo(t *testing.T) {

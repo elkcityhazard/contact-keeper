@@ -2,12 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"github.com/elkcityhazard/contact-keeper/cmd/internal/config"
+	"github.com/elkcityhazard/contact-keeper/internal/config"
 )
 
 func Test_PingHandler(t *testing.T) {
@@ -18,6 +17,24 @@ func Test_PingHandler(t *testing.T) {
 	app.Port = ":8080"
 
 	NewRepo(&app)
+
+	var pong PingStatus
+	pong.StatusCode = 200
+	pong.Version = Repo.app.Version
+	pong.Message = "pong"
+
+	bytes, err := json.Marshal(pong)
+
+	if err != nil {
+		t.Fatalf("could not serialize: %v", err)
+	}
+
+	expectedOutput := `{"status_code":200,"version":"0.0.1","message":"pong"}`
+
+	if string(bytes) != expectedOutput {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			string(bytes), expectedOutput)
+	}
 
 	// create the request
 
@@ -32,18 +49,6 @@ func Test_PingHandler(t *testing.T) {
 	// create a response recorder
 
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		type status struct {
-			StatusCode int    `json:"status_code"`
-			Version    string `json:"version"`
-			Message    string `json:"message"`
-		}
-
-		t.Log(Repo)
-
-		var pong status
-		pong.StatusCode = 200
-		pong.Version = Repo.app.Version
-		pong.Message = "pong"
 
 		if err := json.NewEncoder(w).Encode(pong); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -62,30 +67,21 @@ func Test_PingHandler(t *testing.T) {
 			rr.Code, http.StatusOK)
 	}
 
-	// check the response body
+	t.Log(rr)
 
-	type status struct {
-		StatusCode int    `json:"status_code"`
-		Version    string `json:"version"`
-		Message    string `json:"message"`
-	}
+	responseBody := PingStatus{}
 
-	expected := &status{
-		StatusCode: 200,
-		Version:    "0.0.1",
-		Message:    "pong",
-	}
+	err = json.Unmarshal([]byte(rr.Body.Bytes()), &responseBody)
 
-	var actual status
-	if err := json.NewDecoder(rr.Body).Decode(&actual); err != nil {
+	if err != nil {
 		t.Fatal(err)
 	}
 
-	log.Printf("%v+\n", actual)
+	// check the response body
 
-	if actual != *expected {
+	if responseBody != pong {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			actual, expected)
+			responseBody, pong)
 	}
 
 }
