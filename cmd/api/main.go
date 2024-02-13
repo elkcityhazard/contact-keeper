@@ -6,7 +6,10 @@ import (
 	"encoding/gob"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/alexedwards/scs/redisstore"
@@ -14,6 +17,7 @@ import (
 	"github.com/elkcityhazard/contact-keeper/internal/config"
 	"github.com/elkcityhazard/contact-keeper/internal/flagparser"
 	"github.com/elkcityhazard/contact-keeper/internal/handlers"
+	"github.com/elkcityhazard/contact-keeper/internal/mailer"
 	"github.com/elkcityhazard/contact-keeper/internal/models"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gomodule/redigo/redis"
@@ -56,11 +60,16 @@ func main() {
 	app.Mutex = &sync.Mutex{}
 	app.SessionManager = sessionManager
 
+	app.ErrorChan = make(chan error)
+	app.ErrorDoneChan = make(chan bool)
+
 	db, err := sql.Open("mysql", app.DSN)
 
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	mailer.NewMailerConfig(&app)
 
 	app.DB = db
 	app.DBTimeout = 10 * time.Second
@@ -70,6 +79,11 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	// listen for shutdown
+
+	go listenForShutdown()
+	go app.ListenForErrors()
 
 	// create a new repo with the AppConfig
 
@@ -111,4 +125,13 @@ func NewRedisPool() *redis.Pool {
 			return c, err
 		},
 	}
+}
+
+func listenForShutdown() {
+	quit := make(chan os.Signal, 1)
+
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	app.Shutdown()
+	os.Exit(0)
 }

@@ -9,6 +9,8 @@ import (
 
 type UserScope int
 
+type UserStatus int
+
 const (
 	Default UserScope = iota
 	Admin
@@ -16,19 +18,25 @@ const (
 )
 
 const (
+	InActive UserStatus = iota
+	Active
+)
+
+const (
 	passwordHashRounds = 10
 )
 
 type User struct {
-	ID        int64
-	FirstName string    `json:"firstName"`
-	LastName  string    `json:"lastName"`
-	Email     string    `json:"email"`
-	Password  Password  `json:"-"`
-	CreatedAt time.Time `json:"createdAt"`
-	UpdatedAt time.Time `json:"updatedAt"`
-	Version   int       `json:"version"`
-	Scope     int       `json:"scope"`
+	ID         int64
+	FirstName  string    `json:"firstName"`
+	LastName   string    `json:"lastName"`
+	Email      string    `json:"email"`
+	Password   Password  `json:"-"`
+	CreatedAt  time.Time `json:"createdAt"`
+	UpdatedAt  time.Time `json:"updatedAt"`
+	Version    int       `json:"version"`
+	Scope      int       `json:"scope"`
+	UserStatus int       `json:"user_status"`
 }
 
 type Password struct {

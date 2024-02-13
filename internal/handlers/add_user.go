@@ -89,6 +89,7 @@ func (m *Repository) HandleAddUser(w http.ResponseWriter, r *http.Request) {
 
 	user.Password.PlainText = tUser.Password1
 	user.Password.GenerateHashedPassword()
+	user.UserStatus = int(models.InActive)
 
 	log.Printf("%+v\n", user)
 

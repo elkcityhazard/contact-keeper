@@ -80,6 +80,7 @@ func (s *SqlUserRepository) GetUsers(ctx context.Context) ([]*models.User, error
 				&user.UpdatedAt,
 				&user.Version,
 				&user.Scope,
+				&user.UserStatus,
 			)
 
 			// if there are any errors, return the error
@@ -141,7 +142,8 @@ func (s *SqlUserRepository) CreateUser(ctx context.Context, user models.User) (*
 			created_at, 
 			updated_at, 
 			version, 
-			scope) VALUES (?, ?, ?, ?, NOW(), NOW(), 1, ?)`
+			scope,
+			user_status) VALUES (?, ?, ?, ?, NOW(), NOW(), 1, ?, 0)`
 
 		args := []any{user.FirstName, user.LastName, user.Email, user.Password.Hash, user.Scope}
 
